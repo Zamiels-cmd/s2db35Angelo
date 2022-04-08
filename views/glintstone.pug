@@ -1,0 +1,10 @@
+extends layout
+
+block content
+  h1= title
+  
+  -let results=[{glintstone_type:"lesser",slots_used:1,fp_cost:10},{glintstone_type:"normal",slots_used:1,fp_cost:15},{glintstone_type:"greater",slots_used:2,fp_cost:30}]
+  div(class="container-fluid")  
+    div(class="row")
+      each item in results
+        div(class="col-sm-2") #{item.glintstone_type} glintstone cost #{item.slots_used} slots and #{item.fp_cost} fp

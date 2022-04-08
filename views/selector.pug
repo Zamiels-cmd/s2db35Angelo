@@ -1,0 +1,8 @@
+extends layout
+
+block content
+  h1= title
+  -let image_names=["glint.jpg","glint1.jpg","glint2.jpg","glint3.jpg","glint4.jpg"]
+  -for(i=0;i<3;i++){
+    img(src=`/images/${image_names[Math.floor(Math.random()*5)]}`,height=300,width=300, alt="glintstone magic")
+  -}

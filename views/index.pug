@@ -1,0 +1,16 @@
+extends layout
+
+block content
+  h1= title
+  p Welcome to David's #{title} app
+
+  button(type="button", class="btn btn-secondary",onclick="moreClaps();") Press Me
+  div(id="target") Clap for me
+  script.
+    var clap_count=0;
+    function moreClaps(){
+      clap_count+=2;
+      document.getElementById("target").innerHTML=`Clap ${clap_count} times`;
+    }
+
+  a(href="/glintstone") glintstone
