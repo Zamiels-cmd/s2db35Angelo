@@ -12,8 +12,15 @@ exports.glintstone_list = async function(req, res) {
 };
 
 // for a specific . 
-exports.glintstone_detail = function(req, res) {
-    res.send('NOT IMPLEMENTED: glintstone detail: ' + req.params.id);
+exports.glintstone_detail = async function(req, res) {
+    console.log("detail" + req.params.id)
+    try {
+        result = await Glintstone.findById(req.params.id)
+        res.send(result)
+    } catch (error) {
+        res.status(500)
+        res.send(`{"error": document for id ${req.params.id} not found`);
+    }
 };
 
 // Handle create on POST. 
@@ -42,8 +49,23 @@ exports.glintstone_delete = function(req, res) {
 };
 
 // Handle update form on PUT. 
-exports.glintstone_update_put = function(req, res) {
-    res.send('NOT IMPLEMENTED: glintstone update PUT' + req.params.id);
+exports.glintstone_update_put = async function(req, res) {
+    console.log(`update on id ${req.params.id} with body ${JSON.stringify(req.body)}`);
+    try {
+        let toUpdate = await Glintstone.findById(req.params.id)
+            // Do updates of properties 
+        if (req.body.glintstone_type)
+            toUpdate.glintStone_type = req.body.glintstone_type;
+        if (req.body.fp_cost) toUpdate.fp_cost = req.body.fp_cost;
+        if (req.body.slots_used) toUpdate.slots_used = req.body.slots_used;
+        let result = await toUpdate.save();
+        console.log("Sucess " + result)
+        res.send(result)
+    } catch (err) {
+        res.status(500)
+        res.send(`{"error": ${err}: Update for id ${req.params.id} 
+    failed`);
+    }
 };
 
 // VIEWS 
