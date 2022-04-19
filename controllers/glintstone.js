@@ -110,3 +110,28 @@ exports.glintstone_create_Page = function(req, res) {
         res.send(`{'error': '${err}'}`);
     }
 };
+
+exports.glintstone_update_Page = async function(req, res) {
+    console.log("update view for item " + req.query.id)
+    try {
+        let result = await Glintstone.findById(req.query.id)
+        res.render('glintstoneupdate', { title: 'Glintstone Update', toShow: result });
+    } catch (err) {
+        res.status(500)
+        res.send(`{'error': '${err}'}`);
+    }
+};
+
+exports.glintstone_delete_Page = async function(req, res) {
+    console.log("Delete view for id " + req.query.id)
+    try {
+        result = await Glintstone.findById(req.query.id)
+        res.render('glintstonedelete', {
+            title: 'Glintstone Delete',
+            toShow: result
+        });
+    } catch (err) {
+        res.status(500)
+        res.send(`{'error': '${err}'}`);
+    }
+};

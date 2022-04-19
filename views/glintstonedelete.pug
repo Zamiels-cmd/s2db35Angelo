@@ -1,0 +1,52 @@
+extends layout
+
+block content
+    h1= title
+    if (toShow==null)
+        h2 No instance to delete
+    else
+        - let glintstoneid = toShow._id
+        - let glintstone_type = toShow.glintstone_type 
+        - let slots_used = toShow.slots_used 
+        - let fp_cost = toShow.fp_cost
+        - let actionid = "/resource/glintstone/" + glintstoneid 
+        script let actionid = "#{actionid}" 
+        div 
+            .row 
+                div(class='glintstoneAttr mr-3') Glintstone ID is:
+                div #{glintstoneid}
+            .row 
+                div(class='glintstoneAttr mr-3') Glintstone Type is: 
+                div #{glintstone_type}
+            .row 
+                div(class='glintstoneAttr mr-3') Slots Used: 
+                div #{slots_used}
+            .row 
+                div(class='glintstoneAttr mr-3') FP Cost: 
+                div #{fp_cost}
+
+        button(class="btn btn-danger m-2", onclick="deleteId()") Delete 
+        button(class="btn btn-secondary m-2" onclick="cancel()") Cancel 
+        
+        script.
+            function cancel() { 
+                // Go back to the home page for the glintstone collection 
+                window.location.href='/glintstone' 
+            };
+        script.
+            function deleteId() { 
+                console.log("starting delete") 
+                // delete first 
+                fetch(actionid, { 
+                    method: 'DELETE'     //Don't need a body for the delete 
+                }).then((resp) => { 
+                    return resp.json(); // or resp.text() or whatever the server sends 
+                }).then((body) => { 
+                    alert("Delete succeded") 
+                    window.location.href='/glintstone' 
+                    // TODO handle body 
+                }).catch((error) => { 
+                    // TODO handle error 
+                    alert("Delete failed " + error ) 
+                }); 
+            };
