@@ -1,0 +1,34 @@
+extends layout
+
+block content 
+    h1= title 
+
+    form(id="GlintstoneForm",action="/resource/glintstone", method="POST") 
+        .form-group 
+            label.glintstoneAttr(for="glintstone_type") Glintstone Type: 
+            input#glintstoneAttr(type="text",name="glintstone_type")
+        .form-group 
+            label.glintstoneAttr(for="slots_used") Slots Used: 
+            input#glintstoneAttr(type="text",name="slots_used")
+        .form-group 
+            label.glintstoneAttr(for="fp_cost") FP Cost: 
+            input#glintstoneAttr(type="text",name="fp_cost")
+        input(type="submit")
+
+    script.
+        document.forms['GlintstoneForm'].addEventListener('submit', (event) => { 
+            event.preventDefault(); 
+            // TODO do something here to show user that form is being submitted 
+            fetch(event.target.action, { 
+                method: 'POST', 
+                body: new URLSearchParams(new FormData(event.target)) // event.target is the form 
+            }).then((resp) => { 
+                return resp.json(); // or resp.text() or whatever the server sends 
+            }).then((body) => { 
+                alert("Save succeded") 
+                // TODO handle body 
+            }).catch((error) => { 
+                // TODO handle error 
+                alert("Save failed " + error ) 
+            }); 
+        }); 

@@ -3,9 +3,9 @@ const glintstone_controllers = require('../controllers/glintstone');
 const glintstone = require('../models/glintstone');
 var router = express.Router();
 
-/* GET home page. */
 router.get('/', glintstone_controllers.glintstone_view_all_Page);
 router.get('/detail', glintstone_controllers.glintstone_view_one_Page);
+router.get('/create', glintstone_controllers.glintstone_create_Page);
 
 
 module.exports = router;
