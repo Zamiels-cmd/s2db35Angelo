@@ -44,8 +44,16 @@ exports.glintstone_create_post = async function(req, res) {
 };
 
 // Handle  delete form on DELETE. 
-exports.glintstone_delete = function(req, res) {
-    res.send('NOT IMPLEMENTED: glintstone delete DELETE ' + req.params.id);
+exports.glintstone_delete = async function(req, res) {
+    console.log("delete " + req.params.id)
+    try {
+        result = await Glintstone.findByIdAndDelete(req.params.id)
+        console.log("Removed " + result)
+        res.send(result)
+    } catch (err) {
+        res.status(500)
+        res.send(`{"error": Error deleting ${err}}`);
+    }
 };
 
 // Handle update form on PUT. 
@@ -78,5 +86,17 @@ exports.glintstone_view_all_Page = async function(req, res) {
     } catch (err) {
         res.status(500);
         res.send(`{"error": ${err}}`);
+    }
+};
+
+// Handle a show one view with id specified by query 
+exports.glintstone_view_one_Page = async function(req, res) {
+    console.log("single view for id " + req.query.id)
+    try {
+        result = await Glintstone.findById(req.query.id)
+        res.render('glintstonedetail', { title: 'Glintstone Detail', toShow: result });
+    } catch (err) {
+        res.status(500)
+        res.send(`{'error': '${err}'}`);
     }
 };
