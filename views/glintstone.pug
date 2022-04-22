@@ -5,6 +5,12 @@ block content
   
   -let items=results
   div(class="container-fluid")  
-    div(class="row")
+    div(class="row m-1")
       each item in items
+        -let destination = `dispatch(\"/glintstone/update?id=${item._id}\")`
         div(class="col-sm-2") #{item.glintstone_type} glintstone cost #{item.slots_used} slots and #{item.fp_cost} fp
+          button.btn(class="btn-primary ml-1", onclick=destination) Update
+  script.
+    function dispatch(path){
+      window.location.href=path
+    }
