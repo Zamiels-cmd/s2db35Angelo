@@ -56,24 +56,52 @@ exports.glintstone_delete = async function(req, res) {
     }
 };
 
+function isAlpha(input) {
+    console.log(input)
+    check = input.match(/^[a-zA-Z]*$/);
+    if (check) {
+        check = check[0]
+        console.log(check)
+        return check == input
+    } else {
+        return false
+    }
+
+}
+
+function isInt(input) {
+    console.log(input)
+    check = input.match(/^[0-9]*$/)
+    if (check) {
+        check = check[0]
+        console.log(check)
+        return check == input
+    } else {
+        console.log("nope")
+        return false
+    }
+}
+
 // Handle update form on PUT. 
 exports.glintstone_update_put = async function(req, res) {
-    console.log(`update on id ${req.params.id} with body ${JSON.stringify(req.body)}`);
-    try {
-        let toUpdate = await Glintstone.findById(req.params.id)
-            // Do updates of properties 
-        if (req.body.glintstone_type)
-            toUpdate.glintStone_type = req.body.glintstone_type;
-        if (req.body.fp_cost) toUpdate.fp_cost = req.body.fp_cost;
-        if (req.body.slots_used) toUpdate.slots_used = req.body.slots_used;
-        let result = await toUpdate.save();
-        console.log("Sucess " + result)
-        res.send(result)
-    } catch (err) {
-        res.status(500)
-        res.send(`{"error": ${err}: Update for id ${req.params.id} 
-    failed`);
+    if (req.body.glintstone_type && req.body.fp_cost && req.body.slots_used && isAlpha(String(req.body.glintstone_type)) && isInt(String(req.body.fp_cost)) && isInt(String(req.body.slots_used))) {
+        console.log(`update on id ${req.params.id} with body ${JSON.stringify(req.body)}`);
+        try {
+            let toUpdate = await Glintstone.findById(req.params.id)
+            if (req.body.glintstone_type) toUpdate.glintStone_type = req.body.glintstone_type;
+            if (req.body.fp_cost) toUpdate.fp_cost = req.body.fp_cost;
+            if (req.body.slots_used) toUpdate.slots_used = req.body.slots_used;
+            let result = await toUpdate.save();
+            console.log("Success " + result)
+            res.send('{"out": "Save succeded"}')
+        } catch (err) {
+            res.status(500)
+            res.send(`{"error": "Update for id ${req.params.id} failed" }`);
+        }
+    } else {
+        res.send(`{"out": "Invalid user input"}`)
     }
+
 };
 
 // VIEWS 

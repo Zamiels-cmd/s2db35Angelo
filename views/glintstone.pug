@@ -7,9 +7,12 @@ block content
   div(class="container-fluid")  
     div(class="row m-1")
       each item in items
-        -let destination = `dispatch(\"/glintstone/update?id=${item._id}\")`
+        -let update = `dispatch(\"/glintstone/update?id=${item._id}\")`
+        -let create = `dispatch(\"/glintstone/create?id=${item._id}\")`
         div(class="col-sm-2") #{item.glintstone_type} glintstone cost #{item.slots_used} slots and #{item.fp_cost} fp
-          button.btn(class="btn-primary ml-1", onclick=destination) Update
+        
+          button.btn(class="btn-primary ml-1", onclick=update) Update
+          button.btn(class="btn-primary ml-1", onclick=create) Create
   script.
     function dispatch(path){
       window.location.href=path
