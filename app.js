@@ -54,7 +54,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 //mongodb
 const connectionString =
-    process.env.MONGO_CON
+    process.env.MONGO_CON;
+
 mongoose.connect(connectionString, {
     useNewUrlParser: true,
     useUnifiedTopology: true
