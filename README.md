@@ -1,7 +1,7 @@
 # s2wb35Angelo
 Lab 10
 Website here:
-[s2wb35Angelo](https://s2wb35angelo.herokuapp.com/)
+[s2db35Angelo](https://s2db35angelo.herokuapp.com/)
 
 class=glinstone
 glintstone_type(String)
