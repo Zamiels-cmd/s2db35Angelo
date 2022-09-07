@@ -1,4 +1,4 @@
-# s2wb35Angelo
+# s2db35Angelo
 Lab 10
 Website here:
 [s2db35Angelo](https://s2db35angelo.herokuapp.com/)
